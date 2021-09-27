@@ -27,9 +27,5 @@ target/
 /.nb-gradle/
 build/
 
+### VS Code ###
 .vscode/
-
-# adição wba
-/bin/
-.localstack
-

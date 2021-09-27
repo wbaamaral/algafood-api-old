@@ -1,3 +1,11 @@
+.DS_Store
+.classpath
+.project
+.settings
+.apt_generated
+target
+.factorypath
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -29,9 +37,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
 .vscode/
 
 # adição wba
 /bin/
+.localstack
 

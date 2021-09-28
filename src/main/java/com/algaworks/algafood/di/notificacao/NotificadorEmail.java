@@ -12,6 +12,10 @@ public class NotificadorEmail implements Notificador {
 	@Autowired
 	private NotificadorProperties properties;
 	
+	public NotificadorEmail() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void notificar(Cliente cliente, String mensagem) {
 		System.out.println("Host: " + properties.getHostServidor());
@@ -19,6 +23,11 @@ public class NotificadorEmail implements Notificador {
 		
 		System.out.printf("Notificando %s através do e-mail %s: %s\n", 
 				cliente.getNome(), cliente.getEmail(), mensagem);
+	}
+
+	public void setCaixaAlta(boolean b) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

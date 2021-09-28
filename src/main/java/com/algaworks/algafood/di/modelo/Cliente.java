@@ -28,7 +28,7 @@ public class Cliente {
 	public boolean isAtivo() {
 		return ativo;
 	}
-	
+
 	public void ativar() {
 		this.ativo = true;
 	}

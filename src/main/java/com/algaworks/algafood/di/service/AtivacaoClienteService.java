@@ -11,7 +11,7 @@ public class AtivacaoClienteService {
 
 	@Autowired
 	private ApplicationEventPublisher eventPublisher;
-	
+
 	public void ativar(Cliente cliente) {
 		cliente.ativar();
 

@@ -16,24 +16,23 @@ public class CidadeRepositoryImpl implements CidadeRepository {
 
 	@PersistenceContext
 	private EntityManager manager;
-	
+
 	@Override
 	public List<Cidade> listar() {
-		return manager.createQuery("from Cidade", Cidade.class)
-				.getResultList();
+		return manager.createQuery("from Cidade", Cidade.class).getResultList();
 	}
-	
+
 	@Override
 	public Cidade buscar(Long id) {
 		return manager.find(Cidade.class, id);
 	}
-	
+
 	@Transactional
 	@Override
 	public Cidade salvar(Cidade cidade) {
 		return manager.merge(cidade);
 	}
-	
+
 	@Transactional
 	@Override
 	public void remover(Cidade cidade) {

@@ -14,5 +14,5 @@ public class ClienteAtivadoEvent {
 	public Cliente getCliente() {
 		return cliente;
 	}
-	
+
 }

@@ -10,5 +10,5 @@ import org.springframework.beans.factory.annotation.Qualifier;
 public @interface TipoDoNotificador {
 
 	NivelUrgencia value();
-	
+
 }

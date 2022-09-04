@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.CadastrosRestauranteService;
@@ -26,7 +27,7 @@ public class RestauranteController {
 
 	@Autowired
 	private CadastrosRestauranteService cadastroRestaurante;
-	
+
 	@GetMapping
 	public List<Restaurante> listar() {
 
@@ -43,11 +44,17 @@ public class RestauranteController {
 			return ResponseEntity.notFound().build();
 
 	}
+
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public Restaurante adicionar(@RequestBody Restaurante restaurante){
-		
-		return cadastroRestaurante.salvar(restaurante);
-		
+	public ResponseEntity<?> adicionar(@RequestBody Restaurante restaurante) {
+		try {
+			Restaurante restauranteSalvar = cadastroRestaurante.salvar(restaurante);
+
+			return ResponseEntity.status(HttpStatus.CREATED).body(restauranteSalvar);
+
+		} catch (EntidadeNaoEncontradaException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+
 	}
 }

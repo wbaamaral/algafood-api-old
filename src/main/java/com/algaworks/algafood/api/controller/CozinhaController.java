@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.algaworks.algafood.di.modelo.CozinhasXmlWrapper;
+/* Suporte xml
+ * import com.algaworks.algafood.di.modelo.CozinhasXmlWrapper;
+ */
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.Cozinha;
@@ -41,12 +43,16 @@ public class CozinhaController {
 
 	}
 
-	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-	public CozinhasXmlWrapper listarXml() {
-
-		return new CozinhasXmlWrapper(cozinhaRepository.listar());
-
-	}
+	/*
+	 * Retirado suporte para retorno de xml
+	 * 
+	 * @GetMapping(produces = MediaType.APPLICATION_XML_VALUE) public
+	 * CozinhasXmlWrapper listarXml() {
+	 * 
+	 * return new CozinhasXmlWrapper(cozinhaRepository.listar());
+	 * 
+	 * }
+	 */
 
 	@GetMapping("/{cozinhaId}")
 	public ResponseEntity<Cozinha> buscar(@PathVariable Long cozinhaId) {

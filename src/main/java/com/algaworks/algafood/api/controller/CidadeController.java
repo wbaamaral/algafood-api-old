@@ -34,6 +34,16 @@ public class CidadeController {
 		return ResponseEntity.status(HttpStatus.OK).body(cidadeRepository.listar());
 	}
 
+	@GetMapping("/{cidadeId}")
+	public ResponseEntity<?> listar(@PathVariable Long cidadeId) {
+		Cidade cidade = cidadeRepository.buscar(cidadeId);
+		if (cidade != null)
+			return ResponseEntity.status(HttpStatus.OK).body(cidade);
+		else
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+					.body(String.format("Cidade com código %d não existe.", cidadeId));
+	}
+
 	@PostMapping
 	public ResponseEntity<?> adicionar(@RequestBody Cidade cidadeNova) {
 		try {

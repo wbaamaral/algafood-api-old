@@ -48,4 +48,12 @@ public class CadastroEstadoService {
 			throw new EntidadeNaoEncontradaException(String.format("Estado não encontrado com o código: %d", estadoId));
 
 	}
+
+	public Estado incluir(Estado estadoNovo) {
+		
+		Estado estado = estadoRepository.salvar(estadoNovo);
+
+		return estado;
+
+	}
 }

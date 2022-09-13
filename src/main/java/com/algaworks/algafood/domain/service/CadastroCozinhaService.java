@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.ReflectUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -74,7 +73,7 @@ public class CadastroCozinhaService {
 		dadosOrigem.forEach((nomePropriedade, valorPropriedade) -> {
 			Field field = ReflectionUtils.findField(Cozinha.class, nomePropriedade);
 			field.setAccessible(true);
-			
+
 			Object novoValor = ReflectionUtils.getField(field, cozinhaOrigem);
 
 			ReflectionUtils.setField(field, cozinhaAtualizar, novoValor);

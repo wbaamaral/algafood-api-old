@@ -1,5 +1,8 @@
 package com.algaworks.algafood.api.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,39 +32,44 @@ public class CidadeController {
 	private CadastroCidadeService cadastroCidade;
 
 	@GetMapping
-	public ResponseEntity<?> listar() {
+	public List<Cidade> listar() {
 
-		return ResponseEntity.status(HttpStatus.OK).body(cidadeRepository.listar());
+		return cidadeRepository.listar();
 	}
 
 	@GetMapping("/{cidadeId}")
 	public ResponseEntity<?> listar(@PathVariable Long cidadeId) {
-		Cidade cidade = cidadeRepository.buscar(cidadeId);
-		if (cidade != null)
+
+		Optional<Cidade> cidade = cidadeRepository.buscar(cidadeId);
+
+		if (cidade.isPresent())
 			return ResponseEntity.status(HttpStatus.OK).body(cidade);
 		else
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
 					.body(String.format("Cidade com código %d não existe.", cidadeId));
+
 	}
 
 	@PostMapping
-	public ResponseEntity<?> adicionar(@RequestBody Cidade cidadeNova) {
-		try {
-			Cidade cidadeSalvar = cadastroCidade.salvar(cidadeNova);
+	public ResponseEntity<?> adicionar(@RequestBody Cidade cidadeParam) {
 
-			return ResponseEntity.status(HttpStatus.CREATED).body(cidadeSalvar);
+		try {
+			Cidade cidade = cadastroCidade.salvar(cidadeParam);
+
+			return ResponseEntity.status(HttpStatus.CREATED).body(cidade);
 
 		} catch (EntidadeNaoEncontradaException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+
 		}
 
 	}
 
 	@PutMapping(value = "/{cidadeId}")
-	public ResponseEntity<?> atualizar(@PathVariable Long cidadeId, @RequestBody Cidade cidadeAtualizar) {
+	public ResponseEntity<?> atualizar(@PathVariable Long cidadeId, @RequestBody Cidade cidadeParam) {
 
 		try {
-			Cidade cidade = cadastroCidade.atualizar(cidadeAtualizar, cidadeId);
+			Cidade cidade = cadastroCidade.atualizar(cidadeParam, cidadeId);
 
 			return ResponseEntity.status(HttpStatus.OK).body(cidade);
 

@@ -1,5 +1,7 @@
 package com.algaworks.algafood.domain.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,22 +25,25 @@ public class CadastroCidadeService {
 		return cidade;
 	}
 
-	public Cidade atualizar(Cidade cidadeAutalizar, Long cidadeId) {
-		Cidade cidadeAtual = cidadeRepository.buscar(cidadeId);
+	public Cidade atualizar(Cidade cidadeParam, Long cidadeId) {
 
-		if (cidadeAtual != null)
-			BeanUtils.copyProperties(cidadeAtual, cidadeAutalizar);
-		else
+		Cidade cidade = cidadeRepository.buscar(cidadeId).orElseThrow(() -> {
 			throw new EntidadeNaoEncontradaException(String.format("Não existe cidade com o código %d.", cidadeId));
+		});
 
-		return cidadeRepository.salvar(cidadeAutalizar);
+		BeanUtils.copyProperties(cidade, cidadeParam);
+
+		return cidadeRepository.salvar(cidadeParam);
 	}
 
 	public void remover(Long cidadeId) {
 		try {
-			Cidade cidade = cidadeRepository.buscar(cidadeId);
+			Cidade cidade = cidadeRepository.buscar(cidadeId).orElseThrow(() -> {
+				throw new EntidadeNaoEncontradaException(String.format("Não existe cidade com o código %d.", cidadeId));
+			});
+
 			cidadeRepository.remover(cidade);
-			
+
 		} catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(
 					String.format("Cidade de código %d não pode ser removida, pois está em uso.", cidadeId));

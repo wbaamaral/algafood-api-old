@@ -1,6 +1,7 @@
 package com.algaworks.algafood.infrastructure.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,8 +24,8 @@ public class CidadeRepositoryImpl implements CidadeRepository {
 	}
 
 	@Override
-	public Cidade buscar(Long id) {
-		return manager.find(Cidade.class, id);
+	public Optional<Cidade> buscar(Long id) {
+		return Optional.ofNullable(manager.find(Cidade.class, id));
 	}
 
 	@Transactional
@@ -36,7 +37,7 @@ public class CidadeRepositoryImpl implements CidadeRepository {
 	@Transactional
 	@Override
 	public void remover(Cidade cidade) {
-		cidade = buscar(cidade.getId());
+		cidade = buscar(cidade.getId()).get();
 		manager.remove(cidade);
 	}
 

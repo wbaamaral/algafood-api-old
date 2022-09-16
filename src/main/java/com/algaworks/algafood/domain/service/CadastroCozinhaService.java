@@ -23,18 +23,14 @@ public class CadastroCozinhaService {
 
 	public Cozinha salvar(Cozinha cozinha) {
 
-		/*
-		 * Lógica de negócio aqui...
-		 * 
-		 */
-
-		return cozinhaRepository.salvar(cozinha);
+		return cozinhaRepository.saveAndFlush(cozinha);
 	}
 
 	public void remover(Long cozinhaId) {
 
 		try {
-			cozinhaRepository.remover(cozinhaId);
+			cozinhaRepository.deleteById(cozinhaId);
+
 		} catch (EmptyResultDataAccessException e) {
 			/*
 			 * exception de negócio
@@ -85,13 +81,12 @@ public class CadastroCozinhaService {
 	}
 
 	public Cozinha buscarCozinha(Long cozinhaId) {
-		Cozinha cozinha = cozinhaRepository.buscar(cozinhaId);
-
-		if (cozinha == null)
+		Cozinha cozinha = cozinhaRepository.findById(cozinhaId).orElseThrow(() -> {
 			throw new EntidadeNaoEncontradaException(
 					String.format("Não exite um cadastro de cozinha com o código %d", cozinhaId));
-		else
-			return cozinha;
+		});
+
+		return cozinha;
 	}
 
 }

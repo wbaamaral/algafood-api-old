@@ -8,13 +8,22 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @JsonRootName("cozinha")
-@Data
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
+@Entity(name = "cozinha")
 public class Cozinha {
 
 	@EqualsAndHashCode.Include

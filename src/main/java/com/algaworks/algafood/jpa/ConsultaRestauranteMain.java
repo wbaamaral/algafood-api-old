@@ -14,17 +14,16 @@ public class ConsultaRestauranteMain {
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
-				.web(WebApplicationType.NONE)
-				.run(args);
-		
+				.web(WebApplicationType.NONE).run(args);
+
 		RestauranteRepository restauranteRepository = applicationContext.getBean(RestauranteRepository.class);
-		
-		List<Restaurante> todosRestaurantes = restauranteRepository.listar();
-		
+
+		List<Restaurante> todosRestaurantes = restauranteRepository.findAll();
+
 		for (Restaurante restaurante : todosRestaurantes) {
-			System.out.printf("%s - %f - %s\n", restaurante.getNome(),
-					restaurante.getTaxaFrete(), restaurante.getCozinha().getNome());
+			System.out.printf("%s - %f - %s\n", restaurante.getNome(), restaurante.getTaxaFrete(),
+					restaurante.getCozinha().getNome());
 		}
 	}
-	
+
 }

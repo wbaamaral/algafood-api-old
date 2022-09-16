@@ -14,15 +14,11 @@ import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.RecursoInesistenteException;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
-import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class CadastrosRestauranteService {
-
-	@Autowired
-	private CozinhaRepository cozinhaRepository;
 
 	@Autowired
 	private RestauranteRepository restauranteRepository;
@@ -32,13 +28,13 @@ public class CadastrosRestauranteService {
 
 	private Restaurante carregarRestaurante(Long restauranteId) {
 
-		Restaurante restaurante = restauranteRepository.buscar(restauranteId);
-
-		if (restaurante != null)
-			return restaurante;
-		else
+		Restaurante restaurante = restauranteRepository.findById(restauranteId).orElseThrow(() -> {
 			throw new RecursoInesistenteException(
 					String.format("Recurso restaurante não existe com esse código %d", restauranteId));
+
+		});
+
+		return restaurante;
 
 	}
 
@@ -69,7 +65,7 @@ public class CadastrosRestauranteService {
 
 		restaurante.setCozinha(cozinha);
 
-		return restauranteRepository.salvar(restaurante);
+		return restauranteRepository.save(restaurante);
 
 	}
 
@@ -82,7 +78,7 @@ public class CadastrosRestauranteService {
 		BeanUtils.copyProperties(restaurante, restauranteAtual, "id");
 		restauranteAtual.setCozinha(novaCozinha);
 
-		restauranteRepository.salvar(restauranteAtual);
+		restauranteRepository.save(restauranteAtual);
 
 		return restauranteAtual;
 	}

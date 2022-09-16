@@ -2,6 +2,7 @@ package com.algaworks.algafood.api.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -35,15 +36,15 @@ public class RestauranteController {
 	@GetMapping
 	public List<Restaurante> listar() {
 
-		return restauranteRepository.listar();
+		return restauranteRepository.findAll();
 	}
 
 	@GetMapping("/{restauranteId}")
 	public ResponseEntity<Restaurante> buscar(@PathVariable Long restauranteId) {
-		Restaurante restaurante = restauranteRepository.buscar(restauranteId);
+		Optional<Restaurante> restaurante = restauranteRepository.findById(restauranteId);
 
-		if (restaurante != null) {
-			return ResponseEntity.ok(restaurante);
+		if (restaurante.isPresent()) {
+			return ResponseEntity.ok(restaurante.get());
 		} else
 			return ResponseEntity.notFound().build();
 
@@ -86,7 +87,7 @@ public class RestauranteController {
 			@RequestBody Map<String, Object> dadosOrigem) {
 
 		Restaurante restaurante = cadastroRestaurante.merge(restauranteId, dadosOrigem);
-		
+
 		if (restaurante != null)
 			return ResponseEntity.ok(restaurante);
 		else

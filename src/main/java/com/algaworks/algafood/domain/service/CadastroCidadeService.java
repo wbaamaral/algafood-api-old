@@ -18,29 +18,29 @@ public class CadastroCidadeService {
 
 	public Cidade salvar(Cidade cidadeNova) {
 
-		Cidade cidade = cidadeRepository.salvar(cidadeNova);
+		Cidade cidade = cidadeRepository.save(cidadeNova);
 
 		return cidade;
 	}
 
 	public Cidade atualizar(Cidade cidadeParam, Long cidadeId) {
 
-		Cidade cidade = cidadeRepository.buscar(cidadeId).orElseThrow(() -> {
+		Cidade cidade = cidadeRepository.findById(cidadeId).orElseThrow(() -> {
 			throw new EntidadeNaoEncontradaException(String.format("Não existe cidade com o código %d.", cidadeId));
 		});
 
 		BeanUtils.copyProperties(cidade, cidadeParam);
 
-		return cidadeRepository.salvar(cidadeParam);
+		return salvar(cidadeParam);
 	}
 
 	public void remover(Long cidadeId) {
 		try {
-			Cidade cidade = cidadeRepository.buscar(cidadeId).orElseThrow(() -> {
+			Cidade cidade = cidadeRepository.findById(cidadeId).orElseThrow(() -> {
 				throw new EntidadeNaoEncontradaException(String.format("Não existe cidade com o código %d.", cidadeId));
 			});
 
-			cidadeRepository.remover(cidade);
+			cidadeRepository.delete(cidade);
 
 		} catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(

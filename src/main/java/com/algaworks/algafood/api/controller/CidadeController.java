@@ -34,13 +34,13 @@ public class CidadeController {
 	@GetMapping
 	public List<Cidade> listar() {
 
-		return cidadeRepository.listar();
+		return cidadeRepository.findAll();
 	}
 
 	@GetMapping("/{cidadeId}")
 	public ResponseEntity<?> listar(@PathVariable Long cidadeId) {
 
-		Optional<Cidade> cidade = cidadeRepository.buscar(cidadeId);
+		Optional<Cidade> cidade = cidadeRepository.findById(cidadeId);
 
 		if (cidade.isPresent())
 			return ResponseEntity.status(HttpStatus.OK).body(cidade);
@@ -86,6 +86,8 @@ public class CidadeController {
 			return ResponseEntity.ok().build();
 		} catch (EntidadeEmUsoException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+		}catch (EntidadeNaoEncontradaException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}
 	}
 }

@@ -1,5 +1,7 @@
 package com.algaworks.algafood.domain.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,25 +19,23 @@ public class CadastroEstadoService {
 	private EstadoRepository estadoRepository;
 
 	public Estado salvar(Estado estado, Long estadoId) {
-		Estado estadoAtual = estadoRepository.buscar(estadoId);
-
-		if (estadoAtual != null) {
-
-			BeanUtils.copyProperties(estado, estadoAtual, "id");
-
-			return estadoRepository.salvar(estadoAtual);
-		} else
+		Estado estadoAtual = estadoRepository.findById(estadoId).orElseThrow(() -> {
 			throw new EntidadeNaoEncontradaException(String.format("Estado não encontrado com o código: %d", estadoId));
+		});
+
+		BeanUtils.copyProperties(estado, estadoAtual, "id");
+
+		return estadoRepository.save(estadoAtual);
 
 	}
 
 	public boolean remover(Long estadoId) {
 
-		Estado estadoAtual = estadoRepository.buscar(estadoId);
+		Optional<Estado> estadoAtual = estadoRepository.findById(estadoId);
 
-		if (estadoAtual != null) {
+		if (estadoAtual.isPresent()) {
 			try {
-				estadoRepository.remover(estadoAtual);
+				estadoRepository.delete(estadoAtual.get());
 				return true;
 
 			} catch (DataIntegrityViolationException e) {
@@ -46,12 +46,11 @@ public class CadastroEstadoService {
 
 		} else
 			throw new EntidadeNaoEncontradaException(String.format("Estado não encontrado com o código: %d", estadoId));
-
 	}
 
 	public Estado incluir(Estado estadoNovo) {
-		
-		Estado estado = estadoRepository.salvar(estadoNovo);
+
+		Estado estado = estadoRepository.save(estadoNovo);
 
 		return estado;
 

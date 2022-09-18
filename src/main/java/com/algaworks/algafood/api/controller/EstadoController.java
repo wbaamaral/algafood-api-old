@@ -1,6 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,14 +34,20 @@ public class EstadoController {
 	@GetMapping
 	public List<Estado> listar() {
 
-		return estadoRepository.listar();
+		return estadoRepository.findAll();
 
 	}
 
 	@GetMapping(value = ("/{estadoId}"))
-	public Estado buscarEstado(@PathVariable Long estadoId) {
+	public ResponseEntity<?> buscarEstado(@PathVariable Long estadoId) {
 
-		return estadoRepository.buscar(estadoId);
+		Optional<Estado> estado = estadoRepository.findById(estadoId);
+
+		if (estado.isPresent()) {
+			return ResponseEntity.status(HttpStatus.OK).body(estado.get());
+		} else
+			return ResponseEntity.status(HttpStatus.NO_CONTENT)
+					.body(String.format("Não exite um cadastro de estado com o código %d", estadoId));
 	}
 
 	@PutMapping(value = ("/{estadoId}"))
@@ -66,16 +73,18 @@ public class EstadoController {
 
 		} catch (EntidadeEmUsoException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+		} catch (EntidadeNaoEncontradaException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}
 
 		return ResponseEntity.status(HttpStatus.OK).build();
 
 	}
-	
-	@PostMapping
-	public ResponseEntity<?> incluir(@RequestBody Estado estadoNovo){
 
-			Estado estado = cadastroEstado.incluir(estadoNovo);
-			return ResponseEntity.status(HttpStatus.CREATED).body(estado);
+	@PostMapping
+	public ResponseEntity<?> incluir(@RequestBody Estado estadoNovo) {
+
+		Estado estado = cadastroEstado.incluir(estadoNovo);
+		return ResponseEntity.status(HttpStatus.CREATED).body(estado);
 	}
 }

@@ -12,6 +12,10 @@ insert into estado (id, nome) values (1, 'Minas Gerais');
 insert into estado (id, nome) values (2, 'São Paulo');
 insert into estado (id, nome) values (3, 'Ceará');
 insert into estado (id, nome) values (4, 'Rondônia');
+insert into estado (id, nome) values (5, 'Acre');
+insert into estado (id, nome) values (6, 'Bahia');
+insert into estado (id, nome) values (8, 'Distrito Federal');
+insert into estado (id, nome) values (9, 'Amazonas');
 
 insert into cidade (id, nome, estado_id) values (1, 'Uberlândia', 1);
 insert into cidade (id, nome, estado_id) values (2, 'Belo Horizonte', 1);

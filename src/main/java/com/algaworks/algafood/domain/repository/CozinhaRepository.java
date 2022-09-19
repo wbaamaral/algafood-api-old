@@ -14,6 +14,8 @@ public interface CozinhaRepository extends JpaRepository<Cozinha, Long> {
 	 * Para fins didáticos... é possível criar consultas personalizadas utilizando a
 	 * immplementação dinâmica do jpa, seguindo os seguintes critérios...
 	 * 
+	 * https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation
+	 * 
 	 */
 
 	// Retorna uma lista de cozinhas buscando por "nome", utilizando o nome do
@@ -24,5 +26,5 @@ public interface CozinhaRepository extends JpaRepository<Cozinha, Long> {
 	/*
 	 * Busca similar ao criterio like, prefixado "fidby" atributo
 	 */
-	List<Cozinha> findBynome(String nome);
+	List<Cozinha> findBynomeLike(String nome);
 }

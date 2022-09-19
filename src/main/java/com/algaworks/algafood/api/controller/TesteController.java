@@ -22,7 +22,7 @@ public class TesteController {
 	@GetMapping("/cozinhas/list-por-nome")
 	public List<Cozinha> listarCozinhasPorNome(String nome) {
 
-		return cozinhaRepository.findBynome(nome);
+		return cozinhaRepository.findBynomeLike('%' + nome + '%');
 
 	}
 

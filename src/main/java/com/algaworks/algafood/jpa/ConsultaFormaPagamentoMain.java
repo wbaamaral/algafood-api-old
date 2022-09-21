@@ -14,16 +14,15 @@ public class ConsultaFormaPagamentoMain {
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
-				.web(WebApplicationType.NONE)
-				.run(args);
-		
+				.web(WebApplicationType.NONE).run(args);
+
 		FormaPagamentoRepository formaPagamentoRepository = applicationContext.getBean(FormaPagamentoRepository.class);
-		
-		List<FormaPagamento> todasFormasPagamentos = formaPagamentoRepository.listar();
-		
+
+		List<FormaPagamento> todasFormasPagamentos = formaPagamentoRepository.findAll();
+
 		for (FormaPagamento formaPagamento : todasFormasPagamentos) {
 			System.out.println(formaPagamento.getDescricao());
 		}
 	}
-	
+
 }

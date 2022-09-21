@@ -54,10 +54,16 @@ public class TesteController {
 		
 		return cozinhaRepository.buscarListaPorNome(nome);
 	}
-	
+
 	@GetMapping("/restaurantes/find")
 	public List<Restaurante> buscar(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
 		
 		return restauranteRepository.find(nome, taxaFreteInicial, taxaFreteFinal);
+	}
+	
+	@GetMapping("/restaurantes/find2")
+	public List<Restaurante> criteriaSimples() {
+		
+		return restauranteRepository.criteriaSimples();
 	}
 }

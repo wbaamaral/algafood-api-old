@@ -1,6 +1,7 @@
 package com.algaworks.algafood.infrastructure.repository;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,25 +56,22 @@ public class RestauranteRepositoryImpl {
 
 	public List<Restaurante> criteriaSimples(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
 
-		/*
-		 * equivalente ao jpql
-		 * 
-		 * from Restaurante ... não é justificaval o uso de criteria para algo tão
-		 * simples, porém auxilia em consultas complexas. só o primeiro passo.
-		 * 
-		 */
-		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		var builder = manager.getCriteriaBuilder();
+		var criteria = builder.createQuery(Restaurante.class);
+		var predicates = new ArrayList<Predicate>();
 
-		CriteriaQuery<Restaurante> criteria = builder.createQuery(Restaurante.class);
+		var root = criteria.from(Restaurante.class);
 
-		// definição de restrições
-		Root<Restaurante> root = criteria.from(Restaurante.class);
+		if (StringUtils.hasText(nome))
+			predicates.add(builder.like(root.get("nome"), "%" + nome + "%"));
 
-		Predicate nomePredicate = builder.like(root.get("nome"), "%" + nome + "%");
-		Predicate taxaInicialPredicate = builder.greaterThanOrEqualTo(root.get("taxaFrete"), taxaFreteInicial);
-		Predicate taxaFinalPredicate = builder.lessThanOrEqualTo(root.get("taxaFrete"), taxaFreteFinal);
+		if (taxaFreteInicial != null)
+			predicates.add(builder.greaterThanOrEqualTo(root.get("taxaFrete"), taxaFreteInicial));
 
-		criteria.where(nomePredicate, taxaInicialPredicate, taxaFinalPredicate);
+		if (taxaFreteFinal != null)
+			predicates.add(builder.lessThanOrEqualTo(root.get("taxaFrete"), taxaFreteFinal));
+
+		criteria.where(predicates.toArray(new Predicate[0]));
 
 		TypedQuery<Restaurante> query = manager.createQuery(criteria);
 

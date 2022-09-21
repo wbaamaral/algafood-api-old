@@ -13,5 +13,5 @@ public interface RestauranteRepository extends JpaRepository<Restaurante, Long> 
 
 	public List<Restaurante> find(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal);
 	
-	public List<Restaurante> criteriaSimples();
+	public List<Restaurante> criteriaSimples(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal);
 }

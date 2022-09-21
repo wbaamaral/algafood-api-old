@@ -24,7 +24,7 @@ public class TesteController {
 
 	@Autowired
 	private RestauranteRepository restauranteRepository;
-	
+
 	@GetMapping("/cozinhas/list-por-nome")
 	public List<Cozinha> listarCozinhasPorNome(String nome) {
 
@@ -51,19 +51,19 @@ public class TesteController {
 
 	@GetMapping("/cozinhas/query-cozinhas-por-nome")
 	public List<Cozinha> buscarPorNome(String nome) {
-		
+
 		return cozinhaRepository.buscarListaPorNome(nome);
 	}
 
 	@GetMapping("/restaurantes/find")
 	public List<Restaurante> buscar(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
-		
+
 		return restauranteRepository.find(nome, taxaFreteInicial, taxaFreteFinal);
 	}
-	
+
 	@GetMapping("/restaurantes/find2")
-	public List<Restaurante> criteriaSimples() {
-		
-		return restauranteRepository.criteriaSimples();
+	public List<Restaurante> criteriaSimples(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
+
+		return restauranteRepository.criteriaSimples(nome, taxaFreteInicial, taxaFreteFinal);
 	}
 }

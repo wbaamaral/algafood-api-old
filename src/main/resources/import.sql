@@ -7,8 +7,10 @@ insert into restaurante (id, nome, taxa_frete, cozinha_id) values (2, 'Thai Deli
 insert into restaurante (id, nome, taxa_frete, cozinha_id) values (3, 'Tuk Tuk Comida Indiana', 15, 2);
 insert into restaurante (id, nome, taxa_frete, cozinha_id) values (4, 'Fogão de Lenha', 8.50, 3);
 insert into restaurante (id, nome, taxa_frete, cozinha_id) values (5, 'Panela Mineira', 0, 3);
-insert into restaurante (id, nome, taxa_frete, cozinha_id) values (6, 'Panela Mineira 2', 0, 3);
-
+insert into restaurante (id, nome, taxa_frete, cozinha_id) values (6, 'Panela Mineira', 15, 3);
+insert into restaurante (id, nome, taxa_frete, cozinha_id) values (7, 'Panela Brasil', 0.0, 3);
+insert into restaurante (id, nome, taxa_frete, cozinha_id) values (8, 'Panela Mineira 2', 0, 3);
+insert into restaurante (id, nome, taxa_frete, cozinha_id) values (9, 'Rei do rango', 0.0, 3);
 
 insert into estado (id, nome) values (1, 'Minas Gerais');
 insert into estado (id, nome) values (2, 'São Paulo');

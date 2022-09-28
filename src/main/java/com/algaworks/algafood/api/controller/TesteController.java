@@ -70,6 +70,6 @@ public class TesteController {
 	@GetMapping("/restaurantes/com-frete-gratis")
 	public List<Restaurante> restaurantesComFreteGratis(String nome) {
 
-		return restauranteRepository.findAll(comFreteGratis().and(comNomeSimilar(nome)));
+		return restauranteRepository.findComFreteGratisNomeSemelhante(nome);
 	}
 }

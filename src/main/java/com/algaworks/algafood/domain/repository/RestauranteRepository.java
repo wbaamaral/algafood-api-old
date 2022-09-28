@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -17,10 +18,10 @@ public interface RestauranteRepository
 
 	List<Restaurante> queryByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal);
 
-	List<Restaurante> findByNomeContainingAndCozinhaId(String nome, Long cozinha);
-
-	// @Query("from Restaurante where nome like %:nome% and cozinha.id = :id")
+	@Query("from Restaurante where nome like %:nome% and cozinha.id = :id")
 	List<Restaurante> consultarPorNome(String nome, @Param("id") Long cozinha);
+
+	List<Restaurante> findByNomeContainingAndCozinhaId(String nome, Long cozinha);
 
 	Optional<Restaurante> findFirstRestauranteByNomeContaining(String nome);
 

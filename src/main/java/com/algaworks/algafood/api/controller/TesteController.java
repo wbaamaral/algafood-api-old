@@ -55,21 +55,11 @@ public class TesteController {
 		return cozinhaRepository.buscarListaPorNome(nome);
 	}
 
-	@GetMapping("/restaurantes/find")
-	public List<Restaurante> buscar(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
+//	@GetMapping("/restaurantes/find")
+//	public List<Restaurante> buscar(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
+//
+//		return restauranteRepository.find(nome, taxaFreteInicial, taxaFreteFinal);
+//	}
 
-		return restauranteRepository.find(nome, taxaFreteInicial, taxaFreteFinal);
-	}
 
-	@GetMapping("/restaurantes/find2")
-	public List<Restaurante> criteriaSimples(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
-
-		return restauranteRepository.criteriaSimples(nome, taxaFreteInicial, taxaFreteFinal);
-	}
-
-	@GetMapping("/restaurantes/com-frete-gratis")
-	public List<Restaurante> restaurantesComFreteGratis(String nome) {
-
-		return restauranteRepository.findComFreteGratisNomeSemelhante(nome);
-	}
 }

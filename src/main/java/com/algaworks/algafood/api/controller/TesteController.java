@@ -1,6 +1,5 @@
 package com.algaworks.algafood.api.controller;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,5 +60,9 @@ public class TesteController {
 //		return restauranteRepository.find(nome, taxaFreteInicial, taxaFreteFinal);
 //	}
 
+	@GetMapping("/restaurantes/primeiro")
+	public Optional<Restaurante> restaurantePrimeiro() {
 
+		return restauranteRepository.buscarPrimeiro();
+	}
 }

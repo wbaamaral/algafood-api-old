@@ -75,7 +75,8 @@ public class CadastrosRestauranteService {
 
 		Restaurante restauranteAtual = carregarRestaurante(restauranteId);
 
-		BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "formasPagamento", "endereco", "dataCadastro");
+		BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "formasPagamento", "endereco", "dataCadastro",
+				"produtos");
 		restauranteAtual.setCozinha(novaCozinha);
 
 		restauranteRepository.save(restauranteAtual);

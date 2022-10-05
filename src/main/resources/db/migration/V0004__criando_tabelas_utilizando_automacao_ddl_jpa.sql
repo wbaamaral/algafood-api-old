@@ -1,8 +1,14 @@
 
 USE algafood;
 
+<<<<<<< HEAD
 -- Criando tabelas 
 /*
+=======
+/*
+ * Criando tabelas:
+ *
+>>>>>>> 0ae07eb (7.10 Adicionando dados teste com callback flyway)
  * forma_pagamento
  * grupo
  * grupo_permissao
@@ -14,6 +20,10 @@ USE algafood;
  * usuario_grupo
  * 
  */
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 0ae07eb (7.10 Adicionando dados teste com callback flyway)
     create table forma_pagamento (
        id bigint not null auto_increment,
         descricao varchar(255) not null,
@@ -85,6 +95,11 @@ USE algafood;
         primary key (usuario_id, grupo_id)
     ) engine=InnoDB  DEFAULT CHARSET=utf8;
 
+<<<<<<< HEAD
+=======
+    
+    
+>>>>>>> 0ae07eb (7.10 Adicionando dados teste com callback flyway)
    /*
     * 
     * Adicionando referencias de integridade
@@ -135,3 +150,8 @@ USE algafood;
        add constraint fk_usuario 
        foreign key (usuario_id) 
        references usuario (id);
+<<<<<<< HEAD
+=======
+
+       
+>>>>>>> 0ae07eb (7.10 Adicionando dados teste com callback flyway)

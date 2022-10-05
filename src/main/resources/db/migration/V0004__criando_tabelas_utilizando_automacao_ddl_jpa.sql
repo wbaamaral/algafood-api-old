@@ -16,7 +16,7 @@ USE algafood;
  */
     create table forma_pagamento (
        id bigint not null auto_increment,
-        descricao varchar(80) not null,
+        descricao varchar(255) not null,
         primary key (id)
     ) engine = InnoDB DEFAULT CHARSET = utf8;
 
@@ -33,7 +33,7 @@ USE algafood;
 
     create table permissao (
        id bigint not null auto_increment,
-        descricao varchar(80) not null,
+        descricao varchar(255) not null,
         nome varchar(80) not null,
         primary key (id)
     ) engine=InnoDB  DEFAULT CHARSET=utf8;
@@ -41,7 +41,7 @@ USE algafood;
     create table produto (
        id bigint not null auto_increment,
         ativo bit not null,
-        descricao varchar(80) not null,
+        descricao varchar(255) not null,
         nome varchar(80) not null,
         preco decimal(19,2) not null,
         restaurante_id bigint not null,
@@ -71,16 +71,18 @@ USE algafood;
 
     create table usuario (
        id bigint not null auto_increment,
-        data_cadastro datetime not null,
-        email varchar(255) not null,
         nome varchar(80) not null,
-        senha varchar(80) not null,
+        email varchar(255) not null,
+        senha varchar(255) not null,
+        data_cadastro datetime not null,
         primary key (id)
     ) engine=InnoDB  DEFAULT CHARSET=utf8;
 
     create table usuario_grupo (
        usuario_id bigint not null,
-        grupo_id bigint not null
+        grupo_id bigint not null,
+        
+        primary key (usuario_id, grupo_id)
     ) engine=InnoDB  DEFAULT CHARSET=utf8;
 
    /*

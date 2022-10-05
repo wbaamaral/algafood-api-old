@@ -1,11 +1,24 @@
 
 USE algafood;
 
+-- Criando tabelas 
+/*
+ * forma_pagamento
+ * grupo
+ * grupo_permissao
+ * permissao
+ * produto
+ * restaurante
+ * restaurante_forma_pagamento
+ * usuario
+ * usuario_grupo
+ * 
+ */
     create table forma_pagamento (
        id bigint not null auto_increment,
         descricao varchar(80) not null,
         primary key (id)
-    ) engine=InnoDB  DEFAULT CHARSET=utf8;
+    ) engine = InnoDB DEFAULT CHARSET = utf8;
 
     create table grupo (
        id bigint not null auto_increment,
@@ -70,19 +83,24 @@ USE algafood;
         grupo_id bigint not null
     ) engine=InnoDB  DEFAULT CHARSET=utf8;
 
-
+   /*
+    * 
+    * Adicionando referencias de integridade
+    * 
+    */
+   
    alter table grupo_permissao 
-       add constraint fk_permissao 
+       add constraint fk_permissao_grupo 
        foreign key (permissao_id) 
        references permissao (id);
 
     alter table grupo_permissao 
-       add constraint fk_grupo 
+       add constraint fk_grupo_permissao 
        foreign key (grupo_id) 
        references grupo (id);
 
     alter table produto 
-       add constraint fk_restaurante 
+       add constraint fk_restaurante_produto 
        foreign key (restaurante_id) 
        references restaurante (id);
 
@@ -102,10 +120,10 @@ USE algafood;
        references forma_pagamento (id);
 
     alter table restaurante_forma_pagamento 
-       add constraint fk_restaurante 
+       add constraint fk_restaurante_forma_pagamento 
        foreign key (restaurante_id) 
        references restaurante (id);
-
+      
     alter table usuario_grupo 
        add constraint fk_grupo 
        foreign key (grupo_id) 

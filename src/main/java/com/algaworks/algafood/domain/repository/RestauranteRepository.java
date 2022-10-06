@@ -36,7 +36,7 @@ public interface RestauranteRepository extends CustomJpaRepository<Restaurante, 
 	 * formapagam3_ on formaspaga2_.forma_pagamento_id=formapagam3_.id
 	 * 
 	 */
-	@Query("from Restaurante r join fetch r.cozinha left join fetch r.formasPagamento")
+	@Query("from Restaurante r join fetch r.cozinha ")
 	List<Restaurante> findAll();
 
 	List<Restaurante> queryByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal);
